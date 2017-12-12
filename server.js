@@ -8,16 +8,16 @@ app.use(express.static('client/build'));
 
 var MongoClient = require("mongodb").MongoClient
 
-MongoClient.connect("mongodb://localhost:27017/star_wars", function(err, database){
-  if(err){
-    return console.log(err);
-  }
+MongoClient.connect("mongodb://localhost:27017/bands", function(err, database){
+	if(err){
+		return console.log(err);
+	}
 
-  db = database;
-  console.log("Connected to db");
+	db = database;
+	console.log("Connected to db");
 
-  app.listen(3000, function(){
-    console.log("Listening on port 3000");
-  });
+	app.listen(3000, function(){
+		console.log("Listening on port 3000");
+	});
 
 });
