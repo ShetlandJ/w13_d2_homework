@@ -25,4 +25,9 @@ bandRouter.post('/', function(req, res) {
   });
 });
 
+bandRouter.post('/', function(req, res) {
+    db.collection("bands").remove();
+    res.redirect('/');
+});
+
 module.exports = bandRouter;

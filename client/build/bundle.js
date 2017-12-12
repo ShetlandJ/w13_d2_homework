@@ -71,35 +71,53 @@ var BandView = __webpack_require__(1);
 
 var app = function(){
 
-  var url = "http://localhost:3000/bands";
-  makeRequest(url, requestComplete)
+	var url = "http://localhost:3000/bands";
+	makeRequest(url, requestComplete)
+
+	var dButton = document.getElementsByClassName('deleteMe');
+
+	// dButton.forEach(function(button){
+		// dButton.setAttribute("onclick","deleteRow(this)");
+		// dButton.innerText = "❌"
+
+	// })
+
+
 }
 
 var makeRequest = function(url, callback){
-  var request = new XMLHttpRequest();
-  request.open("GET", url);
-  request.addEventListener("load", callback);
-  request.send();
+	var request = new XMLHttpRequest();
+	request.open("GET", url);
+	request.addEventListener("load", callback);
+	request.send();
 }
 
 var requestComplete = function(){
-  if (this.status !== 200) return;
-  var jsonString = this.responseText;
-  var bands = JSON.parse(jsonString);
-  showContent(bands);
+	if (this.status !== 200) return;
+	var jsonString = this.responseText;
+	var bands = JSON.parse(jsonString);
+	showContent(bands);
 }
 
 var showContent = function(bands){
-  var quoteView = new BandView(bands)
+	var quoteView = new BandView(bands)
 }
 
+var deleteRow = function(elem) {
+	console.log(elem)
+	var table = elem.parentNode.parentNode;
+	var rowCount = table.rows.length;
+
+	if(rowCount === 1) {
+		alert('Cannot delete the last row');
+		return;
+	}
+	// get the "<tr>" that is the parent of the clicked button
+	var row = elem.parentNode.parentNode;
+	row.parentNode.removeChild(row); // remove the row
+}
 
 window.addEventListener('load', app);
-
-
-window.addEventListener("load", function(){
-	console.log("Loaded!");
-});
 
 
 /***/ }),
@@ -113,7 +131,6 @@ var BandView = function(bands){
 BandView.prototype = {
   render: function(bands){
 
-    console.log(bands);
     bands.forEach( function(band){
       var bandName = document.createElement('td');
       bandName.innerText = band.name;
@@ -124,7 +141,9 @@ BandView.prototype = {
       var tableRow = document.createElement('tr');
       var dButton = document.createElement('button');
 
-      dButton.innerText = "❌"
+      dButton.className = "deleteMe";
+      // dButton.setAttribute("onclick","deleteRow(this)");
+      // dButton.innerText = "❌"
 
       deleteBtn.appendChild(dButton);
 
@@ -133,10 +152,8 @@ BandView.prototype = {
       tableRow.appendChild(deleteBtn);
       tableRow.appendChild(editBtn);
 
-      // var div = document.getElementById('artist-info');
       var table = document.getElementById('artist-table');
       table.appendChild(tableRow);
-      // div.appendChild(li);
     })
   }
 }

@@ -20,4 +20,9 @@ router.post("/", function(req, res){
   });
 })
 
+router.post("/delete", function(req, res){
+  db.collection("bands").remove();
+  res.redirect('/');
+})
+
 module.exports = router;

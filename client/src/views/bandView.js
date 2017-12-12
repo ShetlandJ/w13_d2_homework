@@ -5,7 +5,6 @@ var BandView = function(bands){
 BandView.prototype = {
   render: function(bands){
 
-    console.log(bands);
     bands.forEach( function(band){
       var bandName = document.createElement('td');
       bandName.innerText = band.name;
@@ -16,7 +15,9 @@ BandView.prototype = {
       var tableRow = document.createElement('tr');
       var dButton = document.createElement('button');
 
-      dButton.innerText = "❌"
+      dButton.className = "deleteMe";
+      // dButton.setAttribute("onclick","deleteRow(this)");
+      // dButton.innerText = "❌"
 
       deleteBtn.appendChild(dButton);
 
@@ -25,10 +26,8 @@ BandView.prototype = {
       tableRow.appendChild(deleteBtn);
       tableRow.appendChild(editBtn);
 
-      // var div = document.getElementById('artist-info');
       var table = document.getElementById('artist-table');
       table.appendChild(tableRow);
-      // div.appendChild(li);
     })
   }
 }
