@@ -9,10 +9,10 @@ BandView.prototype = {
     bands.forEach( function(band){
       var li = document.createElement('li');
       var text = document.createElement('p');
-      var ul = document.getElementById('bands');
-      text.innerText = band.name + ": " + '"' + band.genre + '"';
+      var div = document.getElementById('artist-info');
+      text.innerText = band.name + ": " + band.genre;
       li.appendChild(text);
-      ul.appendChild(li);
+      div.appendChild(li);
     })
   }
 }
