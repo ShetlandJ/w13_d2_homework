@@ -6,17 +6,32 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 	<script src="bundle.js"></script>
+	<link rel="stylesheet" href="styles.css">
 
 	<title>Document</title>
 </head>
 <body>
 	<div id="form-container">
 		<form action="/bands" method="POST">
-			<input type="text" name="band-name" placeholder="Band name">
+			<input type="text" name="name" placeholder="Band name">
 			<input type="text" name="genre" placeholder="Genre">
 			<button type="submit">Add band</button>
 		</form>
+		<form action="/delete" method="POST">
+			<button id="deleteButton" type="submit">Delete All</button>
+		</form>
 	</div>
+	<table id="artist-table">
+		<tbody>
+			<tr>
+				<td>Band Name</td>
+				<td>Band Genre</td>
+				<td>Delete?</td>
+				<td>.</td>
+			</tr>
+		</tbody>
+	</table>
+
 	<div id="artist-info"></div>
 </body>
 </html>

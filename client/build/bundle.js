@@ -65,11 +65,101 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var BandView = __webpack_require__(1);
+
+var app = function(){
+
+	var url = "http://localhost:3000/bands";
+	makeRequest(url, requestComplete)
+
+	var dButton = document.getElementsByClassName('deleteMe');
+
+	// dButton.forEach(function(button){
+		// dButton.setAttribute("onclick","deleteRow(this)");
+		// dButton.innerText = "❌"
+
+	// })
+
+
+}
+
+var makeRequest = function(url, callback){
+	var request = new XMLHttpRequest();
+	request.open("GET", url);
+	request.addEventListener("load", callback);
+	request.send();
+}
+
+var requestComplete = function(){
+	if (this.status !== 200) return;
+	var jsonString = this.responseText;
+	var bands = JSON.parse(jsonString);
+	showContent(bands);
+}
+
+var showContent = function(bands){
+	var quoteView = new BandView(bands)
+}
+
+var deleteRow = function(elem) {
+	console.log(elem)
+	var table = elem.parentNode.parentNode;
+	var rowCount = table.rows.length;
+
+	if(rowCount === 1) {
+		alert('Cannot delete the last row');
+		return;
+	}
+	// get the "<tr>" that is the parent of the clicked button
+	var row = elem.parentNode.parentNode;
+	row.parentNode.removeChild(row); // remove the row
+}
+
+window.addEventListener('load', app);
+
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports) {
 
-window.addEventListener("load", function(){
-	console.log("Loaded!");
-});
+var BandView = function(bands){
+  this.render(bands);
+}
+
+BandView.prototype = {
+  render: function(bands){
+
+    bands.forEach( function(band){
+      var bandName = document.createElement('td');
+      bandName.innerText = band.name;
+      var genre = document.createElement('td');
+      genre.innerText = band.genre;
+      var deleteBtn = document.createElement('td');
+      var editBtn = document.createElement('td');
+      var tableRow = document.createElement('tr');
+      var dButton = document.createElement('button');
+
+      dButton.className = "deleteMe";
+      // dButton.setAttribute("onclick","deleteRow(this)");
+      // dButton.innerText = "❌"
+
+      deleteBtn.appendChild(dButton);
+
+      tableRow.appendChild(bandName);
+      tableRow.appendChild(genre);
+      tableRow.appendChild(deleteBtn);
+      tableRow.appendChild(editBtn);
+
+      var table = document.getElementById('artist-table');
+      table.appendChild(tableRow);
+    })
+  }
+}
+
+
+ module.exports = BandView;
 
 
 /***/ })
